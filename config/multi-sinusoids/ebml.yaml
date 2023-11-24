@@ -1,0 +1,61 @@
+exp_name: "cleaned"
+exp: 'EBMLnew'
+dataset:
+  name: "multi-sinusoids"
+  include_lines: False
+  num_ways: 1
+  num_support: 5
+  num_query: 10
+  num_tasks: 500
+  varying_shot: False
+train:
+  meta_batch_size: 50
+  max_epoch: 4000
+  save_freq: 100
+  val_freq: 100
+model:
+  num_phi_samples: 1
+  latent_dim: 2  
+  hid_dim: 128
+  decoder_sn: False
+  encoder_sn: False
+  prior_sn: False 
+  gaussian_decoder: True
+  deterministic_phi: True
+loss:
+  kl_weight: 0.01
+  ebmprior_weight: 1.0
+  l2_weight: 1.0  
+  contrastive_loss: False
+sgld:
+  decoder:
+    step: 0.005
+    T: 1.0
+    clip_grad: -1
+    grad_clip: False
+    niter: 5
+    init: "noise"
+    over_sample_ratio: 32
+    sample_x: True
+    eta: 0.0001
+  prior:
+    step: 0.001
+    T: 0.0005
+    grad_clip: False
+    clip_grad: -1
+    niter: 20
+    eta: 0.005 
+    init: "buffer"
+    over_sample_ratio: 1
+    sample_in_xy: False
+    sample_x: True
+optimizer:
+  lr: 0.0005
+  beta1: 0.9
+  beta2: 0.999
+
+
+
+
+
+

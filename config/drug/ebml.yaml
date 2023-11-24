@@ -1,0 +1,70 @@
+exp_name: "cleaned"
+exp: 'EBML'
+dataset:
+  name: 'lbap_general_ic50_size'
+  dim_w: 1024
+  dim_y: 1
+  dataset_path: "ci9b00375_si_002.txt"
+  type_filename: 'ci9b00375_si_001.txt'
+  compound_filename: 'ci9b00375_si_003.txt'
+  fp_filename: 'compound_fp.npy'
+  target_assay_list: '591252'
+  train_val_split: [0.9588, 0.0177736202, 0.023386342]
+  num_evaluation_tasks: 100
+  drug_group: 17
+  data_dir: src/datasets/drug/
+  noise: 0.0
+train:
+  meta_batch_size: 10
+  max_patience: 1000
+  max_epoch: 100
+  save_freq: 25
+  val_freq: 1
+  debug: False
+model:
+  num_phi_samples: 1
+  latent_dim: 128
+  hid_dim: 256
+  decoder_sn: False
+  encoder_sn: False
+  prior_sn: False
+  gaussian_decoder: True
+  px_decoder: True
+  pxy_decoder: True
+  refine_gaussian: 0
+  deterministic_phi: True
+loss:
+  kl_weight: 0.01
+  l2_weight: 0.1
+  prior_e_weight: 1.0
+  py_weight: 1.0
+  px_weight: 0.1
+  contrastive_loss: False
+sgld:
+  decoder:
+    step: 0.1
+    eta: 0.00001
+    T: 1.0
+    grad_clip: False
+    niter: 40 # 40
+    init: "CD"
+    over_sample_ratio: 4
+    sample_x: True
+  prior:
+    step: 0.1 # 0.1 for sampling in xy
+    T: 1
+    eta: 0.00001
+    grad_clip: False
+    niter: 40 # 40
+    init: "noise" # noise for sampling in xy
+    over_sample_ratio: 4
+    sample_in_xy: True
+    sample_x: True
+scheduler:
+  name: null # StepLR
+  decay_every_step: 1000
+  gamma: 0.5
+optimizer:
+  lr: 0.0005
+  beta1: 0.9
+  beta2: 0.999

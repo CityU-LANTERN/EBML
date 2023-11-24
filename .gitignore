@@ -1,0 +1,11 @@
+.idea/
+/figures
+/notebooks
+/experiments/*
+/src/datasets/drug/*.txt
+/src/datasets/drug/*.pickle
+/src/datasets/drug/*.npy
+/src/datasets/drug/lbap_core_ic50_assay/*.pickle
+__pycache__
+src/datasets/drug/lbap_general_ic50_size/reg_inputs.pickle
+src/datasets/drug/lbap_general_ic50_size/reg_labels.pickle
