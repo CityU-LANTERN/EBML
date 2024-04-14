@@ -10,7 +10,7 @@ from meta_dataset.data import learning_spec
 # from meta_dataset.data import pipeline
 from src.datasets import pipeline
 from meta_dataset.data import config
-SHUFFLE_BUFFER_SIZE = 0
+SHUFFLE_BUFFER_SIZE = 1000
 
 class MetaDatasetReader:
     """

@@ -1,0 +1,101 @@
+dataset:
+  data_dir: !ENV ${RECORDS}
+  max_support_test: 500
+  max_support_train: 400
+  max_way_test: 50
+  max_way_train: 40
+  name: meta-dataset
+  num_query: null
+  num_support: null
+  num_tasks: 500
+  num_ways: null
+exp: cls
+exp_dir: ./experiments/meta-dataset/name-for-your-run
+exp_name: suffix
+loss:
+  contrastive_loss: false
+  kl_weight: 0.0
+  l2_weight: 1.0
+  use_ce: true
+model:
+  base_energy: l2
+  base_energy_weight: 1.0
+  conv4:
+    feat_dim: 1600
+    num_filters: 64
+  decoder_sn: true
+  detach: false
+  encoder_sn: false
+  feature_extractor: resnet
+  hid_dim: 128
+  latent_dim: 256
+  mha:
+    feature_dim: 512
+    mode: basic
+    num_heads: 8
+  no_film: true
+  num_phi_samples: 1
+  pretrained_resnet_path: src/ebml_models/modules/pretrained_resnet_url.pth.tar
+  prior_sn: true
+  use_pretrained_backbone: true
+optimizer:
+  beta1: 0.9
+  beta2: 0.999
+  lr_ebm: 0.0005
+  lr_vae: 0.0005
+  weight_decay: 0.0
+scheduler:
+  decay_every_step: 5000
+  gamma: 0.5
+sgld:
+  decoder:
+    T: 1.0
+    eta: 0.001
+    grad_clip: false
+    init: CD
+    niter: 10
+    over_sample_ratio: 1
+    sample_x: true
+    step: 50
+  mode: yopo
+  prior:
+    T: 1.0
+    eta: 0.001
+    grad_clip: false
+    init: noise
+    niter: 60
+    over_sample_ratio: 1
+    step: 25
+test:
+  deterministic_tasks: false
+  fixed_way_one_shot: false
+  log_dir: test
+  mah: false
+  num_mcmc_samples: 64
+  num_tasks_per_dataset: 600
+  odin: false
+train:
+  debug: false
+  meta_batch_size: 20
+  num_tasks: 80000
+  num_val_tasks_per_dataset: 200
+  save_freq: 5000
+  val_freq: 999999
+tta:
+  ce_weight: 1.0
+  energy_weight: 0.4
+  entropy_weight: 0
+  energy_m: 0.4
+  lr: 0.05
+  num_steps: 0
+  tsa:
+    ad_form: matrix
+    ad_type: residual
+    init: eye
+    lr_alpha: 0.001 # use task-specific lrs
+    lr_beta: 0.001 # use task-specific lrs
+    opt: alpha+beta
+  update_bn: false
+  update_film: false
+  update_tsa: false
+  weight_decay: 0.0

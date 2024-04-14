@@ -3,7 +3,6 @@ import torch.nn as nn
 from torch.nn import Parameter
 from collections import OrderedDict
 from abc import abstractmethod
-import higher
 import numpy as np
 import typing
 

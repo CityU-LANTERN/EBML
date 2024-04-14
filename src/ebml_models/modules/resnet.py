@@ -376,7 +376,7 @@ class TSAConvBlock(nn.Module):
     def forward(self, x):
         y = self.conv(x)
         if self.ad_type == 'residual':
-            raise Exception
+            # raise Exception
             if self.alpha.size(0) > 1:
                 # residual adaptation in matrix form
                 y = y + F.conv2d(x, self.alpha, stride=self.conv.stride)
@@ -384,7 +384,7 @@ class TSAConvBlock(nn.Module):
                 # residual adaptation in channel-wise (vector)
                 y = y + x * self.alpha
         elif self.ad_type == 'serial':
-            raise Exception
+            # raise Exception
             if self.alpha.size(0) > 1:
                 # serial adaptation in matrix form
                 y = F.conv2d(y, self.alpha) + self.alpha_bias
@@ -571,6 +571,7 @@ def tsa_resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
         missing, unexpected = model.load_state_dict(shared_state, strict=False)
         print('Loaded shared weights from {}'.format(pretrained_model_path))
         print('the following pretrained parameters are unused : \n', [x for x in unexpected])
+        print('the following pretrained parameters are missing: \n', [x for x in missing])
         if kwargs.get('training'):
             print('Enable fine-tuning.')
             print('bn is set in TRAINING mode.')
